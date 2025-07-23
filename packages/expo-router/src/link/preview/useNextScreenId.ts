@@ -15,6 +15,7 @@ export function useNextScreenId(): [string | undefined, (href: Href) => void] {
   const [internalNextScreenId, internalSetNextScreenId] = useState<string | undefined>();
   const setNextScreenId = useCallback((href: Href): void => {
     const preloadedRoute = getPreloadedRouteFromRootStateByHref(href);
+    console.log(preloadedRoute, 'preloadedRoute');
     const routeKey = preloadedRoute?.key;
     internalSetNextScreenId(routeKey);
   }, []);
@@ -33,7 +34,8 @@ function getPreloadedRouteFromRootStateByHref(
   // Replicating the logic from `linkTo`
   const { navigationState, actionStateRoute } = findDivergentState(
     hrefState,
-    state as NavigationState
+    state as NavigationState,
+    'PRELOAD'
   );
 
   if (!navigationState || !actionStateRoute) {

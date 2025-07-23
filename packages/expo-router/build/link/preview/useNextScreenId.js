@@ -9,6 +9,7 @@ function useNextScreenId() {
     const [internalNextScreenId, internalSetNextScreenId] = (0, react_1.useState)();
     const setNextScreenId = (0, react_1.useCallback)((href) => {
         const preloadedRoute = getPreloadedRouteFromRootStateByHref(href);
+        console.log(preloadedRoute, 'preloadedRoute');
         const routeKey = preloadedRoute?.key;
         internalSetNextScreenId(routeKey);
     }, []);
@@ -22,7 +23,7 @@ function getPreloadedRouteFromRootStateByHref(href) {
         return undefined;
     }
     // Replicating the logic from `linkTo`
-    const { navigationState, actionStateRoute } = (0, routing_1.findDivergentState)(hrefState, state);
+    const { navigationState, actionStateRoute } = (0, routing_1.findDivergentState)(hrefState, state, 'PRELOAD');
     if (!navigationState || !actionStateRoute) {
         return undefined;
     }
